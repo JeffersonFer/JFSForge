@@ -1,0 +1,17 @@
+﻿JFS Forge - Antes de Instalar
+
+Você está prestes a instalar o JFS Forge versão 0.1.0.
+
+Funcionalidades desta versão:
+- Comando "Agrupar Elementos" - agrupa automaticamente blocos,
+  grautes horizontais, portas e janelas relacionados a paredes
+  estruturais selecionadas
+- Comando "Aço Horizontal" - calcula e cria automaticamente
+  o aço horizontal de cintas, vergas e contravergas
+- Comando "Compatibilizar" - ajusta blocos parcialmente
+  atravessados por portas e janelas
+- Comando "Coletar Corpus" - coleta dados de modulação de
+  alvenaria para análise e aprendizagem de máquina (em
+  desenvolvimento)
+
+Recomendamos fechar o Revit antes de continuar.
