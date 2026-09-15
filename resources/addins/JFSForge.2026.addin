@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+<AddIn Type="Application">
+<Name>JFS Forge 2026</Name>
+<Assembly>C:\ProgramData\JFSForge\DLLs\2026\JFSForge.Revit.dll</Assembly>
+<FullClassName>JFSForge.Revit.Application.App</FullClassName>
+<ClientId>a74e0b02-b4d1-4b39-aff1-5e8fa4073502</ClientId>
+<VendorId>Jefferson Fernando Santana</VendorId>
+<VendorDescription>Engenheiro Civil e Desenvolvedor BIM</VendorDescription>
+</AddIn>
+</RevitAddIns>

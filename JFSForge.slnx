@@ -1,0 +1,53 @@
+﻿<Solution>
+  <Configurations>
+    <BuildType Name="Debug" />
+    <BuildType Name="Debug R25" />
+    <BuildType Name="Debug R26" />
+    <BuildType Name="Debug R27" />
+    <BuildType Name="Release" />
+    <BuildType Name="Release R25" />
+    <BuildType Name="Release R26" />
+    <BuildType Name="Release R27" />
+  </Configurations>
+  <Folder Name="/resources/" />
+  <Folder Name="/resources/addins/">
+    <File Path="resources/addins/JFSForge.2025.addin" />
+    <File Path="resources/addins/JFSForge.2026.addin" />
+    <File Path="resources/addins/JFSForge.2027.addin" />
+  </Folder>
+  <Folder Name="/resources/webui/" />
+  <Folder Name="/src/" />
+  <Folder Name="/src/JFSForge.Core/">
+    <Project Path="src/JFSForge.Core/JFSForge.Core.csproj">
+      <Platform Solution="Debug R25|*" Project="x64" />
+      <Platform Solution="Debug R26|*" Project="x64" />
+      <Platform Solution="Debug R27|*" Project="x64" />
+      <Platform Solution="Release R25|*" Project="x64" />
+      <Platform Solution="Release R26|*" Project="x64" />
+      <Platform Solution="Release R27|*" Project="x64" />
+    </Project>
+  </Folder>
+  <Folder Name="/src/JFSForge.Revit/">
+    <Project Path="src/JFSForge.Revit/JFSForge.Revit.csproj">
+      <Platform Solution="Debug R25|*" Project="x64" />
+      <Platform Solution="Debug R26|*" Project="x64" />
+      <Platform Solution="Debug R27|*" Project="x64" />
+      <Platform Solution="Release R25|*" Project="x64" />
+      <Platform Solution="Release R26|*" Project="x64" />
+      <Platform Solution="Release R27|*" Project="x64" />
+    </Project>
+  </Folder>
+  <Folder Name="/src/JFSForge.UI/">
+    <Project Path="src/JFSForge.UI/JFSForge.UI.csproj">
+      <Platform Solution="Debug R25|*" Project="x64" />
+      <Platform Solution="Debug R26|*" Project="x64" />
+      <Platform Solution="Debug R27|*" Project="x64" />
+      <Platform Solution="Release R25|*" Project="x64" />
+      <Platform Solution="Release R26|*" Project="x64" />
+      <Platform Solution="Release R27|*" Project="x64" />
+    </Project>
+  </Folder>
+  <Folder Name="/src/JFSForge.Installer/">
+    <File Path="src/JFSForge.Installer/JFSForge.iss" />
+  </Folder>
+</Solution>
