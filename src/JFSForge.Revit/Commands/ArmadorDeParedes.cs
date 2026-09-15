@@ -1548,4 +1548,11 @@ namespace JFSForge.Revit.Commands
             SeptoOrigin = SeptoTransform.Origin;
         }
     }
+
+    public class BlocoSelectionFilter : ISelectionFilter
+    {
+        public BlocoSelectionFilter() { }
+        public bool AllowElement(Element elem) => elem.Name.Contains("TBL");
+        public bool AllowReference(Reference reference, XYZ position) => true;
+    }
 }

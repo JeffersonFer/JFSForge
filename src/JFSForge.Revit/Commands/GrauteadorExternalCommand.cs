@@ -23,7 +23,7 @@ namespace JFSForge.Revit.Commands
                 TaskDialog.Show("Info", "Selecione os blocos para criar Septos Temporários.");
 
                 //Seleção dos blocos instanciados
-                var blocosReferences = uidoc.Selection.PickObjects(ObjectType.Element, new BlocoSelectionFilter(), "Selecione os blocos para serem grauteados");
+                var blocosReferences = uidoc.Selection.PickObjects(ObjectType.Element, new GrauteadorBlocoSelectionFilter(), "Selecione os blocos para serem grauteados");
                 var blocos = blocosReferences.Select(r => new BlocoRevit(doc.GetElement(r) as FamilyInstance)).ToList();
 
                 //Seleciona o familySymbol do Septo
@@ -165,9 +165,9 @@ namespace JFSForge.Revit.Commands
         }
     }
 
-    public class BlocoSelectionFilter : ISelectionFilter
+    public class GrauteadorBlocoSelectionFilter : ISelectionFilter
     {
-        public BlocoSelectionFilter()
+        public GrauteadorBlocoSelectionFilter()
         {
         }
 
@@ -182,4 +182,3 @@ namespace JFSForge.Revit.Commands
         }
     }
 }
-

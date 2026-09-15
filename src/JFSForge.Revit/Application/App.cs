@@ -6,8 +6,40 @@ namespace JFSForge.Revit.Application;
 
 public class App : IExternalApplication
 {
+    private static readonly DateTime DataExpiracao = new DateTime(2026, 10, 15);
+    private static readonly string ArquivoControle = System.IO.Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+        "JFSForge", "controle.dat");
+
     public Result OnStartup(UIControlledApplication application)
     {
+        if (RelogioFoiAdulterado())
+        {
+            TaskDialog.Show(
+                "JFS Forge - Versão Expirada",
+                "Não foi possível validar a data do sistema.\n\n" +
+                "Entre em contato com o desenvolvedor para obter uma versão atualizada.");
+
+            return Result.Failed;
+        }
+
+        if (DateTime.Now > DataExpiracao)
+        {
+            TaskDialog.Show(
+                "JFS Forge - Versão Expirada",
+                $"Esta versão do JFS Forge expirou em {DataExpiracao:dd/MM/yyyy}.\n\n" +
+                "Entre em contato com o desenvolvedor para obter uma versão atualizada.");
+
+            return Result.Failed;
+        }
+
+        AtualizarControle();
+
+        int diasRestantes = (DataExpiracao - DateTime.Now).Days;
+        TaskDialog.Show(
+            "JFS Forge",
+            $"Versão de teste - {diasRestantes} dia(s) restante(s) até {DataExpiracao:dd/MM/yyyy}.");
+
         try
         {
             CreateRibbonTab(application, "JFS-Alvenaria");
@@ -38,11 +70,27 @@ public class App : IExternalApplication
                 "Calcula e cria automaticamente o aço horizontal de cintas, vergas e contravergas",
                 "ArmadorDeParedes32.png", "ArmadorDeParedes16.png");
 
+            CreateButton(application, "JFS-Alvenaria", "Aço", "GrauteadorButton",
+                "Grautear\nPilaretes", "JFSForge.Revit.Commands.GrauteadorExternalCommand",
+                "Cria pilaretes de graute vertical a partir de septos identificados nos blocos selecionados",
+                "Grauteador32.png", "Grauteador16.png");
+
             CreateButton(application, "JFS-Alvenaria", "Machine Learning", "ColetarCorpusButton",
                 "Coletar\nCorpus", "JFSForge.Revit.Commands.ColetarCorpusCommand",
                 "Coleta dados de modulação de blocos em trechos de parede, para análise e aprendizagem de máquina",
                 "ColetarCorpus32.png", "ColetarCorpus16.png");
+
+            CreateButton(application, "JFS-Alvenaria", "Elevações", "ElevationCreatorButton",
+                "Criar\nElevações", "JFSForge.Revit.Commands.ElevationCreatorExternalCommandRevit",
+                "Cria elevações automaticamente para as paredes selecionadas, com ajuste de CropBox",
+                "ElevationCreator32.png", "ElevationCreator16.png");
+
+            CreateButton(application, "JFS-Alvenaria", "Elevações", "ElevationMarkerCleanerButton",
+                "Limpar\nElevações", "JFSForge.Revit.Commands.ElevationMarkerCleanerExternalCommandRevit",
+                "Remove marcadores de elevação (ElevationMarker) vazios do documento",
+                "ElevationMarkerCleaner32.png", "ElevationMarkerCleaner16.png");
         }
+
         catch (System.Exception ex)
         {
             TaskDialog.Show("JFS Forge - Erro no OnStartup", ex.ToString());
@@ -54,6 +102,27 @@ public class App : IExternalApplication
     public Result OnShutdown(UIControlledApplication application)
     {
         return Result.Succeeded;
+    }
+
+    private static bool RelogioFoiAdulterado()
+    {
+        if (!System.IO.File.Exists(ArquivoControle))
+            return false;
+
+        var conteudo = System.IO.File.ReadAllText(ArquivoControle);
+
+        if (!DateTime.TryParse(conteudo, System.Globalization.CultureInfo.InvariantCulture,
+                System.Globalization.DateTimeStyles.RoundtripKind, out var ultimaDataVista))
+            return false;
+
+        return DateTime.Now < ultimaDataVista;
+    }
+
+    private static void AtualizarControle()
+    {
+        var pasta = System.IO.Path.GetDirectoryName(ArquivoControle);
+        System.IO.Directory.CreateDirectory(pasta!);
+        System.IO.File.WriteAllText(ArquivoControle, DateTime.Now.ToString("o"));
     }
 
     private static void CreateRibbonTab(UIControlledApplication application, string tabName)

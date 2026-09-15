@@ -86,6 +86,30 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<Link>Resources\NotasDaVersao16.png</Link>
 		</None>
+		<None Include="..\..\resources\icons\ribbon\Grauteador32.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>Resources\Grauteador32.png</Link>
+		</None>
+		<None Include="..\..\resources\icons\ribbon\Grauteador16.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>Resources\Grauteador16.png</Link>
+		</None>
+		<None Include="..\..\resources\icons\ribbon\ElevationCreator32.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>Resources\ElevationCreator32.png</Link>
+		</None>
+		<None Include="..\..\resources\icons\ribbon\ElevationCreator16.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>Resources\ElevationCreator16.png</Link>
+		</None>
+		<None Include="..\..\resources\icons\ribbon\ElevationMarkerCleaner32.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>Resources\ElevationMarkerCleaner32.png</Link>
+		</None>
+		<None Include="..\..\resources\icons\ribbon\ElevationMarkerCleaner16.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>Resources\ElevationMarkerCleaner16.png</Link>
+		</None>		
 	</ItemGroup>
 
 </Project>
