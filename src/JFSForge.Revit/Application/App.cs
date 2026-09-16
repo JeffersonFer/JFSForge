@@ -89,6 +89,12 @@ public class App : IExternalApplication
                 "Limpar\nElevações", "JFSForge.Revit.Commands.ElevationMarkerCleanerExternalCommandRevit",
                 "Remove marcadores de elevação (ElevationMarker) vazios do documento",
                 "ElevationMarkerCleaner32.png", "ElevationMarkerCleaner16.png");
+
+            CreateButton(application, "JFS-Alvenaria", "Elevações", "RenumeradorButton",
+                "Renumerador", "JFSForge.Revit.Commands.RenumeradorCommand",
+                "Abre a tela do Renumerador",
+                "Renumerador32.png", "Renumerador16.png");
+
         }
 
         catch (System.Exception ex)

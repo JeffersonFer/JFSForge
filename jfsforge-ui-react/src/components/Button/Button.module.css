@@ -1,0 +1,27 @@
+.button {
+  height: 56px;
+  width: auto;
+  padding: 0 24px;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #13E8AF;
+  color: #000000;
+  transition: background-color 0.15s ease;
+}
+
+.button:hover:not(:disabled) {
+  background-color: #13E8AF; /* placeholder - trocar pela cor de hover */
+}
+
+.button:active:not(:disabled) {
+  background-color: #13E8AF; /* placeholder - trocar pela cor de ativo/pressionado */
+}
+
+.button:disabled {
+  background-color: #D1D5DB; /* placeholder - trocar pelo cinza definitivo */
+  color: #6B7280;
+  cursor: not-allowed;
+}

@@ -43,6 +43,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\JFSForge.Core\JFSForge.Core.csproj" />
+		<ProjectReference Include="..\JFSForge.UI\JFSForge.UI.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -109,7 +110,15 @@
 		<None Include="..\..\resources\icons\ribbon\ElevationMarkerCleaner16.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<Link>Resources\ElevationMarkerCleaner16.png</Link>
-		</None>		
+		</None>
+		<None Include="..\..\resources\icons\ribbon\Renumerador32.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>Resources\Renumerador32.png</Link>
+		</None>
+		<None Include="..\..\resources\icons\ribbon\Renumerador16.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>Resources\Renumerador16.png</Link>
+		</None>
 	</ItemGroup>
 
 </Project>

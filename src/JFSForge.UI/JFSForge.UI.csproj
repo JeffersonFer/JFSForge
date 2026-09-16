@@ -22,4 +22,11 @@
 <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4129.50" />
 </ItemGroup>
 
+<ItemGroup>
+	<None Include="..\..\jfsforge-ui-react\dist\**\*.*">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		<Link>WebUI\%(RecursiveDir)%(Filename)%(Extension)</Link>
+	</None>
+</ItemGroup>
+
 </Project>
