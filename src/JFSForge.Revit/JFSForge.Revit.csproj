@@ -119,6 +119,22 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<Link>Resources\Renumerador16.png</Link>
 		</None>
+		<None Include="..\..\resources\icons\ribbon\AtivarFiltrosDWG32.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>Resources\AtivarFiltrosDWG32.png</Link>
+		</None>
+		<None Include="..\..\resources\icons\ribbon\AtivarFiltrosDWG16.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>Resources\AtivarFiltrosDWG16.png</Link>
+		</None>
+		<None Include="..\..\resources\icons\ribbon\DesativarFiltrosDWG32.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>Resources\DesativarFiltrosDWG32.png</Link>
+		</None>
+		<None Include="..\..\resources\icons\ribbon\DesativarFiltrosDWG16.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>Resources\DesativarFiltrosDWG16.png</Link>
+		</None>
 	</ItemGroup>
 
 </Project>

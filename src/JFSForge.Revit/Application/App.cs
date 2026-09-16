@@ -95,6 +95,16 @@ public class App : IExternalApplication
                 "Abre a tela do Renumerador",
                 "Renumerador32.png", "Renumerador16.png");
 
+            CreateButton(application, "JFS-Alvenaria", "Filtros DWG", "AtivarFiltrosDWGButton",
+                "Ativar", "JFSForge.Revit.Commands.AtivarFiltrosDWGCommand",
+                "Ativa filtros que começam com 'DWG' em todos os View Templates que controlam o parâmetro Filters",
+                "AtivarFiltrosDWG32.png", "AtivarFiltrosDWG16.png");
+
+            CreateButton(application, "JFS-Alvenaria", "Filtros DWG", "DesativarFiltrosDWGButton",
+                "Desativar", "JFSForge.Revit.Commands.DesativarFiltrosDWGCommand",
+                "Desativa filtros que começam com 'DWG' em todos os View Templates que controlam o parâmetro Filters",
+                "DesativarFiltrosDWG32.png", "DesativarFiltrosDWG16.png");
+
         }
 
         catch (System.Exception ex)
