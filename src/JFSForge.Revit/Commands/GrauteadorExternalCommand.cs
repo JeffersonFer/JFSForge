@@ -22,11 +22,9 @@ namespace JFSForge.Revit.Commands
 
                 TaskDialog.Show("Info", "Selecione os blocos para criar Septos Temporários.");
 
-                //Seleção dos blocos instanciados
                 var blocosReferences = uidoc.Selection.PickObjects(ObjectType.Element, new GrauteadorBlocoSelectionFilter(), "Selecione os blocos para serem grauteados");
                 var blocos = blocosReferences.Select(r => new BlocoRevit(doc.GetElement(r) as FamilyInstance)).ToList();
 
-                //Seleciona o familySymbol do Septo
                 FamilySymbol? detailSymbol = new FilteredElementCollector(doc)
                 .OfClass(typeof(FamilySymbol))
                 .OfCategory(BuiltInCategory.OST_DetailComponents)
@@ -42,13 +40,11 @@ namespace JFSForge.Revit.Commands
                     return Result.Failed;
                 }
 
-                //Ativar o symbol se necessário
                 if (!detailSymbol.IsActive)
                 {
                     detailSymbol.Activate();
                 }
 
-                //Seleciona o familySymbol do pilarete
                 FamilySymbol? pilarete2BarrasSymbol = new FilteredElementCollector(doc)
                 .OfClass(typeof(FamilySymbol))
                 .OfCategory(BuiltInCategory.OST_GenericModel)
@@ -65,7 +61,6 @@ namespace JFSForge.Revit.Commands
                     return Result.Failed;
                 }
 
-                //Ativar o symbol se necessário
                 if (!pilarete2BarrasSymbol.IsActive)
                 {
                     pilarete2BarrasSymbol.Activate();
@@ -89,9 +84,7 @@ namespace JFSForge.Revit.Commands
 
                         foreach (var septo in septosParaGrautear)
                         {
-                            // Obter a posição e orientação do septo
                             XYZ septoBasisX = septo.SeptoTransform.BasisX;
-                            // Calcular a orientação do pilarete com base na orientação do septo
                             XYZ xAxis = XYZ.BasisX;
                             double angle = Math.Atan2(septoBasisX.Y, septoBasisX.X);
 
@@ -99,17 +92,14 @@ namespace JFSForge.Revit.Commands
                             {
                                 tx.Start();
 
-                                // Desativa regeneração automática durante o loop
                                 tx.SetFailureHandlingOptions(
                                     tx.GetFailureHandlingOptions()
                                      .SetDelayedMiniWarnings(true));
 
-                                //Criar o pilarete na posição do septo
                                 XYZ pointInstance = new XYZ(septo.SeptoOrigin.X, septo.SeptoOrigin.Y, blocos[0].BlocoTransform.Origin.Z);
                                 FamilyInstance pilareteInstance = doc.Create.NewFamilyInstance(pointInstance, pilarete2BarrasSymbol, StructuralType.NonStructural);
                                 pilareteInstance.LookupParameter("SEPTO").Set(septo.Tipo);
 
-                                //Aplicar a rotação ao pilarete para alinhar com o septo
                                 if (Math.Abs(angle) > 1e-9)
                                 {
                                     Line axix = Line.CreateBound(septo.SeptoOrigin, septo.SeptoOrigin + XYZ.BasisZ);
@@ -123,7 +113,7 @@ namespace JFSForge.Revit.Commands
                         var septosCollector = new FilteredElementCollector(doc)
                                         .OfCategory(BuiltInCategory.OST_DetailComponents)
                                         .WhereElementIsNotElementType()
-                                        .Cast<FamilyInstance>()
+                                        .OfType<FamilyInstance>()
                                         .Where(fi => fi.Name == "SEPTO");
 
                         using (Transaction deleteTx = new Transaction(doc, "Deletar Septos Temporários"))

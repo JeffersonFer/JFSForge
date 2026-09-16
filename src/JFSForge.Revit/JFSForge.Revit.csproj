@@ -135,6 +135,14 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<Link>Resources\DesativarFiltrosDWG16.png</Link>
 		</None>
+		<None Include="..\..\resources\icons\ribbon\OcultarCropBoxElevacoes32.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>Resources\OcultarCropBoxElevacoes32.png</Link>
+		</None>
+		<None Include="..\..\resources\icons\ribbon\OcultarCropBoxElevacoes16.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>Resources\OcultarCropBoxElevacoes16.png</Link>
+		</None>
 	</ItemGroup>
 
 </Project>

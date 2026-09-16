@@ -1,17 +1,18 @@
 ﻿JFS Forge - Antes de Instalar
 
-Você está prestes a instalar o JFS Forge versão 0.1.0.
+Você está prestes a instalar o JFS Forge versão 0.3.0.
 
-Funcionalidades desta versão:
-- Comando "Agrupar Elementos" - agrupa automaticamente blocos,
-  grautes horizontais, portas e janelas relacionados a paredes
-  estruturais selecionadas
-- Comando "Aço Horizontal" - calcula e cria automaticamente
-  o aço horizontal de cintas, vergas e contravergas
-- Comando "Compatibilizar" - ajusta blocos parcialmente
-  atravessados por portas e janelas
-- Comando "Coletar Corpus" - coleta dados de modulação de
-  alvenaria para análise e aprendizagem de máquina (em
-  desenvolvimento)
+Novidades desta versão:
+- Comando "Grauteador" - cria pilaretes de graute vertical a
+  partir de septos identificados nos blocos selecionados
+- Comando "Criar Elevações" - gera elevações automaticamente
+  para paredes selecionadas, com ajuste de CropBox
+- Comando "Limpar Elevações" - remove marcadores de elevação
+  vazios do documento
+- Comandos "Ativar/Desativar Filtros DWG" - controla filtros
+  de visibilidade em View Templates
+- Comando "Ocultar Crop Box - Elevações" - oculta o Crop Box
+  visível em views de elevação
+- Primeira tela com interface gráfica (React + WebView2)
 
 Recomendamos fechar o Revit antes de continuar.

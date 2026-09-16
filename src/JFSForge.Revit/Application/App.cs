@@ -105,6 +105,11 @@ public class App : IExternalApplication
                 "Desativa filtros que começam com 'DWG' em todos os View Templates que controlam o parâmetro Filters",
                 "DesativarFiltrosDWG32.png", "DesativarFiltrosDWG16.png");
 
+            CreateButton(application, "JFS-Alvenaria", "Crop", "OcultarCropBoxElevacoesButton",
+                "Ocultar Crop\nElevações", "JFSForge.Revit.Commands.OcultarCropBoxElevacoes",
+                "Oculta o CropBox de todas as views de elevação com Crop Box ativo",
+                "OcultarCropBoxElevacoes32.png", "OcultarCropBoxElevacoes16.png");
+
         }
 
         catch (System.Exception ex)

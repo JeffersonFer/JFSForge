@@ -1,6 +1,6 @@
 ﻿JFS Forge - Instalação Concluída
 
-O JFS Forge versão 0.1.0 foi instalado com sucesso!
+O JFS Forge versão 0.3.0 foi instalado com sucesso!
 
 Nas abas JFS-Alvenaria e JFS-Concreto da Ribbon, você
 encontra os comandos disponíveis para modelagem e
