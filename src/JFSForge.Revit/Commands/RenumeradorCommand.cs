@@ -1,7 +1,9 @@
 ﻿using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using JFSForge.Revit.ExternalEventHandlers;
 using JFSForge.UI.Windows;
+using System.Text.Json;
 
 namespace JFSForge.Revit.Commands
 {
@@ -9,22 +11,53 @@ namespace JFSForge.Revit.Commands
     public class RenumeradorCommand : IExternalCommand
     {
         private static ReactWindow? _janelaAberta;
+        private static ExternalEvent? _renumeradorExternalEvent;
+        private static RenumeradorDeElevacoesHandler? _handler;
 
-        ExternalEvent renumeradorDeElevacoesExternalEvent;
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-
             if (_janelaAberta != null && _janelaAberta.IsLoaded)
             {
                 _janelaAberta.Activate();
                 return Result.Succeeded;
             }
 
-            _janelaAberta = new ReactWindow("index.html", largura: 500, altura: 500, tamanhoFixo: true);
+            _handler = new RenumeradorDeElevacoesHandler();
+            _renumeradorExternalEvent = ExternalEvent.Create(_handler);
+
+            _janelaAberta = new ReactWindow("index.html", largura: 400, altura: 500, tamanhoFixo: true);
+            _handler.Janela = _janelaAberta;
+
+            _janelaAberta.MensagemRecebida += (mensagemJson) =>
+            {
+                ProcessarMensagemDoReact(mensagemJson);
+            };
+
             _janelaAberta.Closed += (s, e) => _janelaAberta = null;
             _janelaAberta.Show();
 
             return Result.Succeeded;
+        }
+
+        private void ProcessarMensagemDoReact(string mensagemJson)
+        {
+            using var documento = JsonDocument.Parse(mensagemJson);
+            var raiz = documento.RootElement;
+
+            var tipo = raiz.GetProperty("tipo").GetString();
+
+            if (tipo == "selecionar")
+            {
+                _handler!.Acao = "selecionar";
+                _renumeradorExternalEvent!.Raise();
+            }
+            else if (tipo == "processar")
+            {
+                _handler!.Acao = "processar";
+                _handler.Prefixo = raiz.GetProperty("prefixo").GetString() ?? "PAR";
+                _handler.ValorInicial = raiz.GetProperty("valorInicial").GetString() ?? "1";
+                _renumeradorExternalEvent!.Raise();
+            }
         }
     }
 }

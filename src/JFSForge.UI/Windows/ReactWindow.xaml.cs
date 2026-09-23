@@ -7,6 +7,8 @@ namespace JFSForge.UI.Windows;
 
 public partial class ReactWindow : Window
 {
+    public event Action<string>? MensagemRecebida;
+
     public ReactWindow(string paginaHtml = "index.html", double largura = 800, double altura = 450, bool tamanhoFixo = true)
     {
         InitializeComponent();
@@ -26,8 +28,6 @@ public partial class ReactWindow : Window
     {
         await WebView.EnsureCoreWebView2Async();
 
-        //WebView.CoreWebView2.OpenDevToolsWindow(); // Debug
-
         var assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         var pastaBase = Path.Combine(assemblyFolder!, "WebUI");
 
@@ -38,11 +38,18 @@ public partial class ReactWindow : Window
 
         WebView.CoreWebView2.WebMessageReceived += (s, e) =>
         {
-            var mensagemRecebida = e.WebMessageAsJson;
-            MessageBox.Show($"Mensagem recebida do React:\n{mensagemRecebida}");
+            MensagemRecebida?.Invoke(e.WebMessageAsJson);
         };
 
         WebView.CoreWebView2.Navigate($"https://appassets/{paginaHtml}");
     }
+
+    public void EnviarMensagemParaReact(object mensagem)
+    {
+        var json = System.Text.Json.JsonSerializer.Serialize(mensagem);
+        WebView.CoreWebView2?.PostWebMessageAsJson(json);
+    }
 }
 
+
+//WebView.CoreWebView2.OpenDevToolsWindow(); // Debug

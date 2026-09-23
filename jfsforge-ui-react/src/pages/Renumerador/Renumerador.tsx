@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../../components/Button/Button";
 import { TextInput } from "../../components/TextInput/TextInput";
 import styles from "./Renumerador.module.css";
@@ -6,32 +6,50 @@ import styles from "./Renumerador.module.css";
 export function Renumerador() {
   const [prefixo, setPrefixo] = useState("PAR");
   const [valorInicial, setValorInicial] = useState("1");
+  const [quantidadeSelecionada, setQuantidadeSelecionada] = useState(0);
 
-  const camposPreenchidos = prefixo.trim() !== "" && valorInicial.trim() !== "";
+  useEffect(() => {
+    const handler = (event: MessageEvent) => {
+      const mensagem = event.data;
+
+      if (mensagem.tipo === "selecaoConcluida") {
+        setQuantidadeSelecionada(mensagem.quantidade);
+      } else if (mensagem.tipo === "selecaoCancelada") {
+        setQuantidadeSelecionada(0);
+      }
+    };
+
+    window.chrome?.webview?.addEventListener("message", handler);
+
+    return () => {
+      window.chrome?.webview?.removeEventListener("message", handler);
+    };
+  }, []);
+
+  const camposPreenchidos =
+    prefixo.trim() !== "" && valorInicial.trim() !== "" && quantidadeSelecionada > 0;
 
   const handleSelecionarElevacoes = () => {
-    console.log("Selecionar Elevações clicado");
+    window.chrome?.webview?.postMessage({ tipo: "selecionar" });
   };
 
   const handleProcessar = () => {
-    const mensagem = {
+    window.chrome?.webview?.postMessage({
       tipo: "processar",
-      prefixo: prefixo,
-      valorInicial: valorInicial,
-    };
-
-    if (window.chrome?.webview) {
-      window.chrome.webview.postMessage(mensagem);
-    } else {
-      console.log("Mensagem (sem WebView2):", mensagem);
-    }
+      prefixo,
+      valorInicial,
+    });
   };
 
   return (
     <div className={styles.container}>
       <h1 className={styles.titulo}>Renumerador de Elevações</h1>
 
-      <Button onClick={handleSelecionarElevacoes}>Selecionar Elevações</Button>
+      <Button onClick={handleSelecionarElevacoes}>
+        {quantidadeSelecionada > 0
+          ? `${quantidadeSelecionada} elevação(ões) selecionada(s)`
+          : "Selecionar Elevações"}
+      </Button>
 
       <div className={styles.campos}>
         <TextInput
