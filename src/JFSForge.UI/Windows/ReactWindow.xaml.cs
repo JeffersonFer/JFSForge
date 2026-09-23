@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Reflection;
 using System.Windows;
+using Microsoft.Web.WebView2.Core;
 
 namespace JFSForge.UI.Windows;
 
@@ -25,10 +26,23 @@ public partial class ReactWindow : Window
     {
         await WebView.EnsureCoreWebView2Async();
 
+        //WebView.CoreWebView2.OpenDevToolsWindow(); // Debug
+
         var assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         var pastaBase = Path.Combine(assemblyFolder!, "WebUI");
-        var caminhoCompleto = Path.Combine(pastaBase, paginaHtml);
 
-        WebView.CoreWebView2.Navigate(new Uri(caminhoCompleto).AbsoluteUri);
+        WebView.CoreWebView2.SetVirtualHostNameToFolderMapping(
+            "appassets",
+            pastaBase,
+            CoreWebView2HostResourceAccessKind.Allow);
+
+        WebView.CoreWebView2.WebMessageReceived += (s, e) =>
+        {
+            var mensagemRecebida = e.WebMessageAsJson;
+            MessageBox.Show($"Mensagem recebida do React:\n{mensagemRecebida}");
+        };
+
+        WebView.CoreWebView2.Navigate($"https://appassets/{paginaHtml}");
     }
 }
+

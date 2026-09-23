@@ -39,3 +39,8 @@ Type: dirifempty; Name: "{commonappdata}\JFSForge\DLLs\2026"
 Type: dirifempty; Name: "{commonappdata}\JFSForge\DLLs\2027"
 Type: dirifempty; Name: "{commonappdata}\JFSForge\DLLs"
 Type: dirifempty; Name: "{commonappdata}\JFSForge"
+
+[InstallDelete]
+Type: filesandordirs; Name: "{commonappdata}\JFSForge\DLLs\2025\WebUI"
+Type: filesandordirs; Name: "{commonappdata}\JFSForge\DLLs\2026\WebUI"
+Type: filesandordirs; Name: "{commonappdata}\JFSForge\DLLs\2027\WebUI"
