@@ -1,6 +1,7 @@
 ﻿using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using JFSForge.Revit.Application;
 using JFSForge.Revit.ExternalEventHandlers;
 using JFSForge.UI.Windows;
 using System.Text.Json;
@@ -16,27 +17,44 @@ namespace JFSForge.Revit.Commands
 
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            if (_janelaAberta != null && _janelaAberta.IsLoaded)
+            try
             {
-                _janelaAberta.Activate();
+                //Controle de expiração
+                if (!ControleExpiracao.EstaValido())
+                {
+                    TaskDialog.Show("JFS Forge - Versão Expirada", ControleExpiracao.ObterMensagemExpiracao());
+                    return Result.Failed;
+                }
+
+                if (_janelaAberta != null && _janelaAberta.IsLoaded)
+                {
+                    _janelaAberta.Activate();
+                    return Result.Succeeded;
+                }
+
+                _handler = new RenumeradorDeElevacoesHandler();
+                _renumeradorExternalEvent = ExternalEvent.Create(_handler);
+
+                _janelaAberta = new ReactWindow("index.html#/renumerador", largura: 500, altura: 500, tamanhoFixo: true);
+                _handler.Janela = _janelaAberta;
+
+                _janelaAberta.MensagemRecebida += (mensagemJson) =>
+                {
+                    ProcessarMensagemDoReact(mensagemJson);
+                };
+
+                _janelaAberta.Closed += (s, e) => _janelaAberta = null;
+                _janelaAberta.Show();
+
                 return Result.Succeeded;
             }
-
-            _handler = new RenumeradorDeElevacoesHandler();
-            _renumeradorExternalEvent = ExternalEvent.Create(_handler);
-
-            _janelaAberta = new ReactWindow("index.html", largura: 400, altura: 500, tamanhoFixo: true);
-            _handler.Janela = _janelaAberta;
-
-            _janelaAberta.MensagemRecebida += (mensagemJson) =>
+            catch (Exception ex)
             {
-                ProcessarMensagemDoReact(mensagemJson);
-            };
-
-            _janelaAberta.Closed += (s, e) => _janelaAberta = null;
-            _janelaAberta.Show();
-
-            return Result.Succeeded;
+                _janelaAberta = null;
+                message = ex.Message;
+                TaskDialog.Show("JFS Forge - Erro", $"Não foi possível abrir o Renumerador:\n{ex.Message}");
+                return Result.Failed;
+            }
         }
 
         private void ProcessarMensagemDoReact(string mensagemJson)

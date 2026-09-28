@@ -1,9 +1,10 @@
 ﻿JFS Forge - Instalação Concluída
 
-O JFS Forge versão 0.3.1 foi instalado com sucesso!
+O JFS Forge versão 0.4.0 foi instalado com sucesso!
 
-Esta versão traz correções no comando Renumerador de
-Elevações, que agora processa e finaliza corretamente.
+Nas abas JFS-Alvenaria e JFS-Concreto da Ribbon, você
+encontra os comandos disponíveis. O novo Aplicador de Tags
+está na aba JFS-Alvenaria, painel Tags.
 
 Em caso de dúvidas ou problemas, entre em contato com o
 desenvolvedor.

@@ -7,23 +7,23 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  background-color: #17c798;
+  background-color: var(--accent);
   color: #000000;
   transition: background-color 0.2s ease, transform 0.1s ease;
   box-sizing: border-box;
 }
 
 .button:hover:not(:disabled) {
-  background-color: #15ffc1; /* placeholder - trocar pela cor de hover definitiva */
+  background-color: #15ffc1;
 }
 
 .button:active:not(:disabled) {
-  background-color: #15ffc1; /* placeholder - trocar pela cor de ativo definitiva */
+  background-color: #15ffc1;
   transform: scale(0.98);
 }
 
 .button:disabled {
-  background-color: #D1D5DB;
-  color: #6B7280;
+  background-color: var(--border);
+  color: var(--text);
   cursor: not-allowed;
 }

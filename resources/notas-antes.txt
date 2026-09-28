@@ -1,11 +1,16 @@
 ﻿JFS Forge - Antes de Instalar
 
-Você está prestes a instalar o JFS Forge versão 0.3.1.
+Você está prestes a instalar o JFS Forge versão 0.4.0.
 
-Correções desta versão:
-- Renumerador de Elevações: corrigido travamento no processamento
-  (Commit de transação duplicado impedia a conclusão do fluxo)
-- Renumerador de Elevações: fluxo simplificado - a tela fecha
-  automaticamente ao concluir, com mensagem de confirmação
+Novidades desta versão:
+- Aplicador de Tags: janela para aplicar tags em elevações
+  (janelas, portas, aço horizontal, vigas e pilares)
+- Aço horizontal com tag alternativa quando a barra é curta
+- O instalador instala o WebView2 Runtime automaticamente,
+  caso ele ainda não exista no computador
+
+Correções:
+- Corrigido o fechamento inesperado do Revit ao abrir as
+  janelas de interface
 
 Recomendamos fechar o Revit antes de continuar.

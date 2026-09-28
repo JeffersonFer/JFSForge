@@ -1,12 +1,12 @@
 ﻿[Setup]
 AppId={{a74e0b02-b4d1-4b39-aff1-5e8fa4073502}
 AppName=JFS Forge
-AppVersion=0.3.1
+AppVersion=0.4.0
 AppPublisher=Jefferson Fernando Santana
 DefaultDirName={autopf}\JFSForge
 DisableProgramGroupPage=yes
 OutputDir=..\..\dist\Installer
-OutputBaseFilename=JFSForge-Setup-0.3.1
+OutputBaseFilename=JFSForge-Setup-0.4.0
 Compression=lzma
 SolidCompression=yes
 ArchitecturesInstallIn64BitMode=x64compatible
@@ -32,6 +32,11 @@ Source: "..\..\resources\addins\JFSForge.2026.addin"; DestDir: "{commonappdata}\
 Source: "..\..\resources\addins\JFSForge.2027.addin"; DestDir: "{commonpf}\Autodesk\Revit\Addins\2027"; Flags: ignoreversion
 ; Ícone (usado na desinstalação)
 Source: "..\..\resources\icons\jfsForgeIcon.ico"; DestDir: "{app}"; Flags: ignoreversion
+; WebView2 Runtime Bootstrapper (instalado apenas se necessário, ver [Run])
+Source: "MicrosoftEdgeWebview2Setup.exe"; DestDir: "{tmp}"; Flags: deleteafterinstall
+
+[Run]
+Filename: "{tmp}\MicrosoftEdgeWebview2Setup.exe"; Parameters: "/silent /install"; StatusMsg: "Instalando componente necessário (WebView2 Runtime)..."; Check: not IsWebView2Installed; Flags: waituntilterminated
 
 [UninstallDelete]
 Type: dirifempty; Name: "{commonappdata}\JFSForge\DLLs\2025"
@@ -44,3 +49,13 @@ Type: dirifempty; Name: "{commonappdata}\JFSForge"
 Type: filesandordirs; Name: "{commonappdata}\JFSForge\DLLs\2025\WebUI"
 Type: filesandordirs; Name: "{commonappdata}\JFSForge\DLLs\2026\WebUI"
 Type: filesandordirs; Name: "{commonappdata}\JFSForge\DLLs\2027\WebUI"
+
+[Code]
+function IsWebView2Installed: Boolean;
+var
+  Version: String;
+begin
+  Result :=
+    RegQueryStringValue(HKLM, 'SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate\Clients\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}', 'pv', Version)
+    or RegQueryStringValue(HKLM, 'SOFTWARE\Microsoft\EdgeUpdate\Clients\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}', 'pv', Version);
+end;

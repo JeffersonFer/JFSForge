@@ -1,6 +1,7 @@
 ﻿using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using JFSForge.Revit.Application;
 
 namespace JFSForge.Revit.Commands
 {
@@ -9,6 +10,13 @@ namespace JFSForge.Revit.Commands
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
+            //Controle de expiração
+            if (!ControleExpiracao.EstaValido())
+            {
+                TaskDialog.Show("JFS Forge - Versão Expirada", ControleExpiracao.ObterMensagemExpiracao());
+                return Result.Failed;
+            }
+
             UIApplication uiApp = commandData.Application;
             Document doc = uiApp.ActiveUIDocument.Document;
 

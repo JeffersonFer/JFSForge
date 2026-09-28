@@ -3,6 +3,7 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Structure;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
+using JFSForge.Revit.Application;
 
 namespace JFSForge.Revit.Commands
 {
@@ -14,6 +15,13 @@ namespace JFSForge.Revit.Commands
         private List<string> _familyNamesBL14 = new List<string> { "TBL4X19", "TBL9X19", "TBL14X19", "TBL14X34", "TBL14X39", "TBL14X54" };
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
+            //Controle de expiração
+            if (!ControleExpiracao.EstaValido())
+            {
+                TaskDialog.Show("JFS Forge - Versão Expirada", ControleExpiracao.ObterMensagemExpiracao());
+                return Result.Failed;
+            }
+
             var uiApp = commandData.Application;
             var app = uiApp.Application;
             var uidoc = uiApp.ActiveUIDocument;

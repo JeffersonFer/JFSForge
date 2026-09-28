@@ -1,0 +1,53 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.label {
+  font-size: 14px;
+  color: var(--text);
+}
+
+.trilho {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  border-radius: 999px;
+  border: none;
+  background-color: var(--border);
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.trilho:hover:not(.ativo) {
+  background-color: var(--border-hover);
+}
+
+.trilho.ativo {
+  background-color: var(--accent);
+}
+
+.trilho.ativo:hover {
+  background-color: #15ffc1;
+}
+
+.bolinha {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s ease;
+}
+
+.trilho.ativo .bolinha {
+  transform: translateX(20px);
+}

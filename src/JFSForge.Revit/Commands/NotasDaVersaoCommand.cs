@@ -1,5 +1,6 @@
 ﻿using Autodesk.Revit.Attributes;
 using Autodesk.Revit.UI;
+using JFSForge.Revit.Application;
 using System.Reflection;
 
 namespace JFSForge.Revit.Commands
@@ -9,23 +10,29 @@ namespace JFSForge.Revit.Commands
     {
         public Result Execute(ExternalCommandData commandData, ref string message, Autodesk.Revit.DB.ElementSet elements)
         {
+            //Controle de expiração
+            if (!ControleExpiracao.EstaValido())
+            {
+                TaskDialog.Show("JFS Forge - Versão Expirada", ControleExpiracao.ObterMensagemExpiracao());
+                return Result.Failed;
+            }
+
             var versao = Assembly.GetExecutingAssembly().GetName().Version;
             var versaoFormatada = $"{versao.Major}.{versao.Minor}.{versao.Build}";
 
             TaskDialog.Show(
-                "JFS Forge - Notas da Versão",
-                $"Versão {versaoFormatada}\n\n" +
-                "• Estrutura inicial do plugin (Core, Revit, UI)\n" +
-                "• Suporte a Revit 2025, 2026 e 2027\n" +
-                "• Instalador automatizado com detecção de versão\n" +
-                "• Ribbon: abas JFS-Alvenaria e JFS-Concreto\n" +
-                "• Comando: Notas da Versão\n" +
-                "• Comando: Agrupar Paredes - concluído\n" +
-                "• Comando: Armador de Paredes - cintas, vergas e contravergas em aço horizontal\n" +
-                "• Comando: Compatibilizador de Blocos - ajusta blocos atravessados por portas/janelas\n" +
-                "• Comando: Coletor de Corpus - coleta dados de modulação de alvenaria para futura IA\n" +
-                "• Correção: Armador de Paredes agora funciona corretamente em paredes com blocos agrupados\n" +
-                "• Correção: REBAIXOA/REBAIXOB do aço horizontal agora são calculados para cintas, vergas e contravergas"
+                 "JFS Forge - Notas da Versão",
+                 $"Versão {versaoFormatada}\n\n" +
+                 "Novidades:\n" +
+                 "• Aplicador de Tags: janela para aplicar tags em elevações (janelas, portas, aço horizontal, vigas e pilares)\n" +
+                 "• Aço horizontal com tag alternativa quando a barra é curta\n" +
+                 "• Interface em tema escuro, com componentes reutilizáveis\n" +
+                 "• O instalador agora instala o WebView2 Runtime automaticamente quando ele não existe no computador\n\n" +
+                 "Correções:\n" +
+                 "• Corrigido o fechamento inesperado do Revit ao abrir as janelas de interface\n" +
+                 "• Botão do Renumerador abria a tela errada\n\n" +
+                 "Em desenvolvimento:\n" +
+                 "• Tags em cortes e plantas"
             );
 
             return Result.Succeeded;

@@ -6,39 +6,18 @@ namespace JFSForge.Revit.Application;
 
 public class App : IExternalApplication
 {
-    private static readonly DateTime DataExpiracao = new DateTime(2026, 10, 15);
-    private static readonly string ArquivoControle = System.IO.Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
-        "JFSForge", "controle.dat");
-
     public Result OnStartup(UIControlledApplication application)
     {
-        if (RelogioFoiAdulterado())
+        if (!ControleExpiracao.EstaValido())
         {
-            TaskDialog.Show(
-                "JFS Forge - Versão Expirada",
-                "Não foi possível validar a data do sistema.\n\n" +
-                "Entre em contato com o desenvolvedor para obter uma versão atualizada.");
-
+            TaskDialog.Show("JFS Forge - Versão Expirada", ControleExpiracao.ObterMensagemExpiracao());
             return Result.Failed;
         }
 
-        if (DateTime.Now > DataExpiracao)
-        {
-            TaskDialog.Show(
-                "JFS Forge - Versão Expirada",
-                $"Esta versão do JFS Forge expirou em {DataExpiracao:dd/MM/yyyy}.\n\n" +
-                "Entre em contato com o desenvolvedor para obter uma versão atualizada.");
-
-            return Result.Failed;
-        }
-
-        AtualizarControle();
-
-        int diasRestantes = (DataExpiracao - DateTime.Now).Days;
+        int diasRestantes = (ControleExpiracao.DataExpiracao - DateTime.Now).Days;
         TaskDialog.Show(
             "JFS Forge",
-            $"Versão de teste - {diasRestantes} dia(s) restante(s) até {DataExpiracao:dd/MM/yyyy}.");
+            $"Versão de teste - {diasRestantes} dia(s) restante(s) até {ControleExpiracao.DataExpiracao:dd/MM/yyyy}.");
 
         try
         {
@@ -110,8 +89,11 @@ public class App : IExternalApplication
                 "Oculta o CropBox de todas as views de elevação com Crop Box ativo",
                 "OcultarCropBoxElevacoes32.png", "OcultarCropBoxElevacoes16.png");
 
+            CreateButton(application, "JFS-Alvenaria", "Tags", "AplicadorDeTagsButton",
+                "Aplicador\nde Tags", "JFSForge.Revit.Commands.AplicadorDeTagsCommand",
+                "Aplica tags em janelas, portas, aço horizontal, vigas e pilares em vistas de elevação, cortes e plantas",
+                "AplicadorDeTags32.png", "AplicadorDeTags16.png");
         }
-
         catch (System.Exception ex)
         {
             TaskDialog.Show("JFS Forge - Erro no OnStartup", ex.ToString());
@@ -123,27 +105,6 @@ public class App : IExternalApplication
     public Result OnShutdown(UIControlledApplication application)
     {
         return Result.Succeeded;
-    }
-
-    private static bool RelogioFoiAdulterado()
-    {
-        if (!System.IO.File.Exists(ArquivoControle))
-            return false;
-
-        var conteudo = System.IO.File.ReadAllText(ArquivoControle);
-
-        if (!DateTime.TryParse(conteudo, System.Globalization.CultureInfo.InvariantCulture,
-                System.Globalization.DateTimeStyles.RoundtripKind, out var ultimaDataVista))
-            return false;
-
-        return DateTime.Now < ultimaDataVista;
-    }
-
-    private static void AtualizarControle()
-    {
-        var pasta = System.IO.Path.GetDirectoryName(ArquivoControle);
-        System.IO.Directory.CreateDirectory(pasta!);
-        System.IO.File.WriteAllText(ArquivoControle, DateTime.Now.ToString("o"));
     }
 
     private static void CreateRibbonTab(UIControlledApplication application, string tabName)
