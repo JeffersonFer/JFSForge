@@ -7,7 +7,7 @@
 		<PlatformTarget>x64</PlatformTarget>
 		<Platforms>x64</Platforms>
 		<UseWPF>true</UseWPF>
-		<Version>0.4.0</Version>
+		<Version>0.5.0</Version>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="$(Configuration.Contains('R27'))">
@@ -150,6 +150,14 @@
 		<None Include="..\..\resources\icons\ribbon\AplicadorDeTags16.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<Link>Resources\AplicadorDeTags16.png</Link>
+		</None>
+		<None Include="..\..\resources\icons\ribbon\UnirElementosEstruturais32.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>Resources\UnirElementosEstruturais32.png</Link>
+		</None>
+		<None Include="..\..\resources\icons\ribbon\UnirElementosEstruturais16.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Link>Resources\UnirElementosEstruturais16.png</Link>
 		</None>
 	</ItemGroup>
 

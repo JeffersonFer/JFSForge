@@ -1,12 +1,12 @@
 ﻿[Setup]
 AppId={{a74e0b02-b4d1-4b39-aff1-5e8fa4073502}
 AppName=JFS Forge
-AppVersion=0.4.0
+AppVersion=0.5.0
 AppPublisher=Jefferson Fernando Santana
 DefaultDirName={autopf}\JFSForge
 DisableProgramGroupPage=yes
 OutputDir=..\..\dist\Installer
-OutputBaseFilename=JFSForge-Setup-0.4.0
+OutputBaseFilename=JFSForge-Setup-0.5.0
 Compression=lzma
 SolidCompression=yes
 ArchitecturesInstallIn64BitMode=x64compatible

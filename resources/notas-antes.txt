@@ -1,11 +1,13 @@
 ﻿JFS Forge - Antes de Instalar
 
-Você está prestes a instalar o JFS Forge versão 0.4.0.
+Você está prestes a instalar o JFS Forge versão 0.5.0.
 
 Novidades desta versão:
+- Unir Estrutura: une conexões, pilares, vigas e pisos na
+  ordem de prioridade Conexão > Pilar > Viga > Piso, e corrige
+  uniões que estejam na ordem errada
 - Aplicador de Tags: janela para aplicar tags em elevações
-  (janelas, portas, aço horizontal, vigas e pilares)
-- Aço horizontal com tag alternativa quando a barra é curta
+- Renumerador e Aplicador de Tags não fecham mais ao concluir
 - O instalador instala o WebView2 Runtime automaticamente,
   caso ele ainda não exista no computador
 

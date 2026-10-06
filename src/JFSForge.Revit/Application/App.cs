@@ -93,6 +93,16 @@ public class App : IExternalApplication
                 "Aplicador\nde Tags", "JFSForge.Revit.Commands.AplicadorDeTagsCommand",
                 "Aplica tags em janelas, portas, aço horizontal, vigas e pilares em vistas de elevação, cortes e plantas",
                 "AplicadorDeTags32.png", "AplicadorDeTags16.png");
+
+            CreateButton(application, "JFS-Alvenaria", "Estrutura", "UnirElementosEstruturaisAlvenariaButton",
+                "Unir\nEstrutura", "JFSForge.Revit.Commands.UnirElementosEstruturaisCommand",
+                "Une blocos de fundação, pilares, vigas e lajes na ordem de prioridade: Bloco de fundação > Pilar > Viga > Laje",
+                "UnirElementosEstruturais32.png", "UnirElementosEstruturais16.png");
+
+            CreateButton(application, "JFS-Concreto", "Estrutura", "UnirElementosEstruturaisConcretoButton",
+                "Unir\nEstrutura", "JFSForge.Revit.Commands.UnirElementosEstruturaisCommand",
+                "Une blocos de fundação, pilares, vigas e lajes na ordem de prioridade: Bloco de fundação > Pilar > Viga > Laje",
+                "UnirElementosEstruturais32.png", "UnirElementosEstruturais16.png");
         }
         catch (System.Exception ex)
         {
