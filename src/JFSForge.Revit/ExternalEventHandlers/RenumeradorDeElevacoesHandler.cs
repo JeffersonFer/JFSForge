@@ -138,9 +138,13 @@ namespace JFSForge.Revit.ExternalEventHandlers
 
                     var totalRenumerado = horizontais.Count + verticais.Count;
 
-                    Janela?.Dispatcher.Invoke(() => Janela.Close());
+                    Janela?.EnviarMensagemParaReact(new
+                    {
+                        tipo = "concluido",
+                        totalRenumerado
+                    });
 
-                    TaskDialog.Show("Renumerador de Elevações", $"Renumeração concluída. {totalRenumerado} elevação(ões) renumerada(s).");
+                    Janela?.Dispatcher.Invoke(() => Janela.Activate());
                 }
                 catch (Exception e)
                 {

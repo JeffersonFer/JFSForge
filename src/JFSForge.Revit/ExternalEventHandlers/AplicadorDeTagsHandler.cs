@@ -104,9 +104,7 @@ namespace JFSForge.Revit.ExternalEventHandlers
                 transactionGroup.Assimilate();
             }
 
-            Janela?.Dispatcher.Invoke(() => Janela.Close());
-
-            TaskDialog.Show("Aplicador de Tags", "Tags aplicadas com sucesso.");
+            Janela?.EnviarMensagemParaReact(new { tipo = "concluido" });
         }
 
         private List<ViewSection> ObterViewSections(UIApplication app, ViewType tipoDeVista)
