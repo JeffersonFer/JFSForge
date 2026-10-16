@@ -30,7 +30,9 @@ namespace JFSForge.Revit.Commands
             var templates = new FilteredElementCollector(doc)
                 .OfClass(typeof(View))
                 .Cast<View>()
-                .Where(v => v.IsTemplate && v.AreGraphicsOverridesAllowed())
+                .Where(v => v.IsTemplate
+                    && v.AreGraphicsOverridesAllowed()
+                    && v.ViewType != ViewType.ThreeD)
                 .ToList();
 
             var filtrosParamId = new ElementId(BuiltInParameter.VIS_GRAPHICS_FILTERS);

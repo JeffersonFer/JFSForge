@@ -1,10 +1,9 @@
 ﻿JFS Forge - Instalação Concluída
 
-O JFS Forge versão 0.5.0 foi instalado com sucesso!
+O JFS Forge versão 0.6.0 foi instalado com sucesso!
 
-Nas abas JFS-Alvenaria e JFS-Concreto da Ribbon, você
-encontra os comandos disponíveis. O novo comando Unir
-Estrutura está no painel Estrutura, nas duas abas.
+Os comandos de renumeração estão no painel "Renumerar Aço
+Horizontal", na aba JFS-Alvenaria.
 
 Em caso de dúvidas ou problemas, entre em contato com o
 desenvolvedor.

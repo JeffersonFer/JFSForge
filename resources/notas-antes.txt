@@ -1,18 +1,20 @@
 ﻿JFS Forge - Antes de Instalar
 
-Você está prestes a instalar o JFS Forge versão 0.5.0.
+Você está prestes a instalar o JFS Forge versão 0.6.0.
 
 Novidades desta versão:
-- Unir Estrutura: une conexões, pilares, vigas e pisos na
-  ordem de prioridade Conexão > Pilar > Viga > Piso, e corrige
-  uniões que estejam na ordem errada
-- Aplicador de Tags: janela para aplicar tags em elevações
-- Renumerador e Aplicador de Tags não fecham mais ao concluir
-- O instalador instala o WebView2 Runtime automaticamente,
-  caso ele ainda não exista no computador
+- Renumeração do aço horizontal, em quatro botões: Geral,
+  Por Parede, Só Alterados e Só Alterados Por Parede
+- O parâmetro PAR_QTD é preenchido com o nome da elevação em
+  que a barra aparece
+- O COD_ACO identifica a barra pelo comprimento reto e pelas
+  dobras; barras de mesmo código recebem o mesmo número
+- O parâmetro Quantidade conta as barras iguais alinhadas na
+  vertical
+- Unir Estrutura: une blocos de fundação, pilares, vigas e
+  lajes na ordem de prioridade
 
-Correções:
-- Corrigido o fechamento inesperado do Revit ao abrir as
-  janelas de interface
+Os parâmetros PAR_QTD, COD_ACO, N e Quantidade precisam
+existir no graute horizontal e ser do tipo texto.
 
 Recomendamos fechar o Revit antes de continuar.

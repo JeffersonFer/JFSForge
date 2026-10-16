@@ -24,16 +24,19 @@ namespace JFSForge.Revit.Commands
                 "JFS Forge - Notas da Versão",
                 $"Versão {versaoFormatada}\n\n" +
                 "Novidades:\n" +
-                "• Unir Estrutura: une conexões, pilares, vigas e pisos na ordem de prioridade Conexão > Pilar > Viga > Piso, corrigindo uniões que estão na ordem errada\n" +
-                "• O comando pede para salvar o projeto antes de unir, para você ter um ponto de retorno\n" +
-                "• Aplicador de Tags: janela para aplicar tags em elevações\n" +
-                "• Renumerador e Aplicador de Tags não fecham mais ao concluir\n" +
-                "• O instalador instala o WebView2 Runtime quando ele não existe no computador\n\n" +
+                "• Renumeração do aço horizontal, em quatro botões: Geral, Por Parede, Só Alterados e Só Alterados Por Parede\n" +
+                "• O parâmetro PAR_QTD é preenchido com o nome da elevação em que a barra aparece, e recebe aviso quando aparece em nenhuma ou em mais de uma\n" +
+                "• O COD_ACO identifica a barra pelo comprimento reto e pelas dobras (ex.: CR125-DOBRA_10_A-DOBRA_35_BU). Barras de mesmo código recebem o mesmo número\n" +
+                "• O parâmetro Quantidade conta as barras iguais alinhadas na vertical\n" +
+                "• Nos comandos Só Alterados, você escolhe se as barras novas pegam o próximo número livre ou vão para o final da sequência\n" +
+                "• Unir Estrutura: une blocos de fundação, pilares, vigas e lajes na ordem de prioridade, e pede para salvar o projeto antes\n\n" +
+                "Melhorias:\n" +
+                "• Armador de Paredes: o rebaixo do aço horizontal agora considera o parâmetro H_Solid do bloco\n" +
+                "• Ativar/Desativar Filtros DWG: os templates de vistas 3D não são mais alterados\n" +
+                "• Renumerador de Elevações e Aplicador de Tags não fecham mais ao concluir\n\n" +
                 "Correções:\n" +
-                "• Corrigido o fechamento inesperado do Revit ao abrir as janelas de interface\n\n" +
-                "Em desenvolvimento:\n" +
-                "• Tags em cortes e plantas"
-);
+                "• Corrigido o fechamento inesperado do Revit ao abrir as janelas de interface"
+            );
 
             return Result.Succeeded;
         }

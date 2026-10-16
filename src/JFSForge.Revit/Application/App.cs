@@ -14,11 +14,6 @@ public class App : IExternalApplication
             return Result.Failed;
         }
 
-        int diasRestantes = (ControleExpiracao.DataExpiracao - DateTime.Now).Days;
-        TaskDialog.Show(
-            "JFS Forge",
-            $"Versão de teste - {diasRestantes} dia(s) restante(s) até {ControleExpiracao.DataExpiracao:dd/MM/yyyy}.");
-
         try
         {
             CreateRibbonTab(application, "JFS-Alvenaria");
@@ -54,10 +49,25 @@ public class App : IExternalApplication
                 "Cria pilaretes de graute vertical a partir de septos identificados nos blocos selecionados",
                 "Grauteador32.png", "Grauteador16.png");
 
-            CreateButton(application, "JFS-Alvenaria", "Machine Learning", "ColetarCorpusButton",
-                "Coletar\nCorpus", "JFSForge.Revit.Commands.ColetarCorpusCommand",
-                "Coleta dados de modulação de blocos em trechos de parede, para análise e aprendizagem de máquina",
-                "ColetarCorpus32.png", "ColetarCorpus16.png");
+            CreateButton(application, "JFS-Alvenaria", "Renumerar Aço Horizontal", "RenumerarGeralButton",
+                "Renumerar\nGeral", "JFSForge.Revit.Commands.RenumerarGeralCommand",
+                "Refaz o código e a numeração de todo o aço horizontal, em sequência única por coordenada",
+                "Renumerar32.png", "Renumerar16.png");
+
+            CreateButton(application, "JFS-Alvenaria", "Renumerar Aço Horizontal", "RenumerarGeralPorParedeButton",
+                "Renumerar\nPor Parede", "JFSForge.Revit.Commands.RenumerarGeralPorParedeCommand",
+                "Refaz o código e a numeração de todo o aço horizontal, reiniciando em 1 a cada parede",
+                "Renumerar32.png", "Renumerar16.png");
+
+            CreateButton(application, "JFS-Alvenaria", "Renumerar Aço Horizontal", "RenumerarAlteradosButton",
+                "Só Alterados\nGeral", "JFSForge.Revit.Commands.RenumerarAlteradosCommand",
+                "Mantém o número das barras cujo código não mudou, em sequência única por coordenada",
+                "Renumerar32.png", "Renumerar16.png");
+
+            CreateButton(application, "JFS-Alvenaria", "Renumerar Aço Horizontal", "RenumerarAlteradosPorParedeButton",
+                "Só Alterados\nPor Parede", "JFSForge.Revit.Commands.RenumerarAlteradosPorParedeCommand",
+                "Mantém o número das barras cujo código não mudou, reiniciando em 1 a cada parede",
+                "Renumerar32.png", "Renumerar16.png");
 
             CreateButton(application, "JFS-Alvenaria", "Elevações", "ElevationCreatorButton",
                 "Criar\nElevações", "JFSForge.Revit.Commands.ElevationCreatorExternalCommandRevit",
@@ -103,6 +113,11 @@ public class App : IExternalApplication
                 "Unir\nEstrutura", "JFSForge.Revit.Commands.UnirElementosEstruturaisCommand",
                 "Une blocos de fundação, pilares, vigas e lajes na ordem de prioridade: Bloco de fundação > Pilar > Viga > Laje",
                 "UnirElementosEstruturais32.png", "UnirElementosEstruturais16.png");
+
+            CreateButton(application, "JFS-Alvenaria", "Machine Learning", "ColetarCorpusButton",
+                "Coletar\nCorpus", "JFSForge.Revit.Commands.ColetarCorpusCommand",
+                "Coleta dados de modulação de blocos em trechos de parede, para análise e aprendizagem de máquina",
+                "ColetarCorpus32.png", "ColetarCorpus16.png");
         }
         catch (System.Exception ex)
         {

@@ -5,7 +5,7 @@ namespace JFSForge.Revit.Application
 {
     public static class ControleExpiracao
     {
-        public static readonly DateTime DataExpiracao = new DateTime(2026, 10, 15);
+        public static readonly DateTime DataExpiracao = new DateTime(2026, 11, 7, 23, 59, 59);
         private static readonly string ArquivoControle = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
             "JFSForge", "controle.dat");

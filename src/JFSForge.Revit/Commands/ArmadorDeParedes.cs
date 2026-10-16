@@ -16,6 +16,12 @@ namespace JFSForge.Revit.Commands
         private readonly List<string> _errosArmacaoVergas = new List<string>();
         private const string NomeFamiliaGrauteHorizontal = "Ø 10";
 
+        // ===== Altura do bloco via H_Solid =====
+        private const string ParametroHSolid = "H_Solid";
+        private const double AlturaPadraoHSolidCm = 20.0;   // H_Solid diferente disso tem prioridade
+        private const double SubtracaoHSolidCm = 1.0;       // valor subtraído de H_Solid
+        private const double ToleranciaHSolidCm = 0.01;     // folga na comparação com 20
+
         // Dado leve produzido na fase de leitura (fora da transação) e consumido na fase de escrita (dentro da transação).
         private readonly struct InstrucaoAcoHorizontal
         {
@@ -482,8 +488,11 @@ namespace JFSForge.Revit.Commands
         }
 
         /// <summary>
-        /// Retorna o menor valor entre SP_H_CANALETA, SP_H_CANALETA2 e SP_H_BLOCO do bloco,
-        /// usado para calcular REBAIXOA/REBAIXOB do aço horizontal associado a ele.
+        /// Calcula o rebaixo (REBAIXOA/REBAIXOB) do aço horizontal a partir do bloco.
+        /// Regra normal: menor valor entre SP_H_CANALETA, SP_H_CANALETA2, SP_H_BLOCO e (H_Solid - 1).
+        /// Regra de prioridade: se H_Solid for diferente de 20 cm, o resultado é H_Solid - 1,
+        /// sem comparar com os outros três. Sem o parâmetro H_Solid (ou sem valor), mantém a
+        /// regra antiga (menor entre os três parâmetros SP_*).
         /// Reaproveitável por qualquer tipo de instrução (cinta, verga, contraverga, ou
         /// futuros comandos que criem aço horizontal a partir de blocos selecionados/detectados).
         /// </summary>
@@ -493,7 +502,22 @@ namespace JFSForge.Revit.Commands
             double h2 = bloco.LookupParameter("SP_H_CANALETA2")?.AsDouble() ?? double.MaxValue;
             double h3 = bloco.LookupParameter("SP_H_BLOCO")?.AsDouble() ?? double.MaxValue;
 
-            return Math.Min(h1, Math.Min(h2, h3));
+            // Procura H_Solid na instância e, se não achar, no tipo.
+            Parameter? hSolid = bloco.LookupParameter(ParametroHSolid)
+                ?? bloco.Symbol.LookupParameter(ParametroHSolid);
+
+            // Sem o parâmetro (ou sem valor), mantém o comportamento anterior.
+            if (hSolid == null || !hSolid.HasValue)
+                return Math.Min(h1, Math.Min(h2, h3));
+
+            double hSolidCm = UnitUtils.ConvertFromInternalUnits(hSolid.AsDouble(), UnitTypeId.Centimeters);
+            double hSolidMenosUm = UnitUtils.ConvertToInternalUnits(hSolidCm - SubtracaoHSolidCm, UnitTypeId.Centimeters);
+
+            // H_Solid diferente do padrão: o valor derivado dele tem prioridade.
+            if (Math.Abs(hSolidCm - AlturaPadraoHSolidCm) > ToleranciaHSolidCm)
+                return hSolidMenosUm;
+
+            return Math.Min(Math.Min(h1, h2), Math.Min(h3, hSolidMenosUm));
         }
 
         /// <summary>
